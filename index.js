@@ -70,6 +70,8 @@ console.log('HERE 2.5');
         // do whatever we want with the response once it's done
         res.on('end', function() {
             try {
+console.log(body);
+
                 var parsed = JSON.parse(body);
                 console.log(parsed);
             } catch (err) {
