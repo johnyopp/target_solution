@@ -83,7 +83,7 @@ function getProductName(product, cb) {
         path: '/v1/pdp/tcin/' + product
         }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
-        res.setEncoding('utf8');
+//        res.setEncoding('utf8');
 console.log('HERE 2');
 
         console.log('/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics');
