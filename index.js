@@ -72,15 +72,16 @@ console.log('HERE 3');
 
 function getProductName(product, cb) {
 
-//    var headers = {};
+    var headers = {};
   
-  //  headers = {
-    //  'Content-Type': 'application/json',
-    //};
+    headers = {
+      'Content-Type': 'application/json',
+    };
 
     https.get({
         host: 'redsky.target.com',
-        path: '/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics'
+        path: '/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics',
+        headers: headers
         }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
         res.setEncoding('utf8');
