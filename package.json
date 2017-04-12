@@ -13,8 +13,9 @@
     "body-parser": "1.16.0",
     "ejs": "2.4.1",
     "express": "4.13.3",
+    "form-js": "4.x",
     "pg": "4.x",
-    "form-js": "4.x"
+    "request": "^2.81.0"
   },
   "repository": {
     "type": "git",
