@@ -24,6 +24,7 @@ app.listen(app.get('port'), function() {
 app.get('/product', function (request, response) {
 
 var request=require("request");
+request.setEncoding('utf8');
 request.get("http://redsky.target.com/v1/pdp/tcin/13860428",function(error,response,body){
            if(error){
                  console.log(error);
