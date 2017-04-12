@@ -24,7 +24,7 @@ app.listen(app.get('port'), function() {
 app.get('/product', function (request, response) {
 
 var request=require("request");
-request.get("http://redsky.target.com/v1/pdp/tcin/13860428?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics",function(error,response,body){
+request.get("https://redsky.target.com/v1/pdp/tcin/13860428?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics",function(error,response,body){
            if(error){
                  console.log(error);
            }
