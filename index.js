@@ -54,6 +54,8 @@ function getProductName(product, cb) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
         res.setEncoding('utf8');
 
+        console.log('/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics');
+
         // incrementally capture the incoming response body
         var body = '';
         res.on('data', function(d) {
