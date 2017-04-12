@@ -21,22 +21,22 @@ app.listen(app.get('port'), function() {
 });
 
 
-app.get('/product', function (request, response) {
+//app.get('/product', function (request, response) {
 
-var request=require("request");
+//var request=require("request");
 //var site_name = encodeURI("http://redsky.target.com/v1/pdp/tcin/13860428");
 
-var site_name = encodeURI("https://maps.googleapis.com/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk");
-request.get(site_name,function(error,response,body){
-           if(error){
-                 console.log(error);
-           }
+//var site_name = encodeURI("https://maps.googleapis.com/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk");
+//request.get(site_name,function(error,response,body){
+  //         if(error){
+    //             console.log(error);
+      //     }
 
-           console.log(response);
-           console.log('111111111111111111');
-           console.log(body);
-});
-});
+        //   console.log(response);
+          // console.log('111111111111111111');
+           //console.log(body);
+//});
+//});
 
 
 
@@ -72,11 +72,11 @@ console.log('HERE 3');
 
 function getProductName(product, cb) {
 
-    var headers = {};
+//    var headers = {};
   
-    headers = {
-      'Content-Type': 'application/json',
-    };
+  //  headers = {
+    //  'Content-Type': 'application/json',
+    //};
 
     https.get({
         host: 'redsky.target.com',
