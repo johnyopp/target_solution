@@ -34,7 +34,7 @@ app.get('/products/:productId', function (request, response) {
       if (err) return response.json(err);
 
       // Return result
-      return response.json({"id" : product,"name": name,"current_price": result.rows});
+      return response.json({"id" : product,"name": name,"current_price": result.rows[0]});
 
     });
   });
@@ -64,6 +64,7 @@ function getProductName(product, cb) {
         res.on('end', function() {
             try {
                 var parsed = JSON.parse(body);
+                console.log(parsed);
             } catch (err) {
                 console.error('Unable to parse response as JSON', err);
                 return cb(err);
