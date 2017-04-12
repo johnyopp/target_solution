@@ -2,7 +2,7 @@ var express = require('express');
 var pg = require('pg');
 var bodyParser = require('body-parser');
 var app = express();
-var http = require('http');
+var https = require('https');
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -71,9 +71,16 @@ console.log('HERE 3');
 });
 
 function getProductName(product, cb) {
-    http.get({
+	var  call_headers = {
+      'Content-Type': 'application/json',
+      'Content-Length': dataString.length
+    };
+    https.get({
         host: 'redsky.target.com',
-        path: '/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics'
+        path: '/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics',
+        headers: call_headers
+    };
+
     }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
         res.setEncoding('utf8');
