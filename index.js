@@ -23,7 +23,10 @@ app.listen(app.get('port'), function() {
 app.get('/products/:productId', function (request, response) {
   var product = request.params.productId;
   
+console.log('HERE 1');
+
   getProductName(product, function(err, name){
+console.log('HERE 3');
 
 
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
@@ -53,8 +56,10 @@ function getProductName(product, cb) {
     }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
         res.setEncoding('utf8');
+console.log('HERE 2');
 
         console.log('/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics');
+console.log('HERE 2.5');
 
         // incrementally capture the incoming response body
         var body = '';
