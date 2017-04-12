@@ -73,7 +73,6 @@ console.log('HERE 3');
 function getProductName(product, cb) {
 	var  call_headers = {
       'Content-Type': 'application/json',
-      'Content-Length': dataString.length
     };
     https.get({
         host: 'redsky.target.com',
