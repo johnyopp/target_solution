@@ -79,10 +79,10 @@ function getProductName(product, cb) {
     };
 
     https.get({
-//        host: 'redsky.target.com',
-//        path: '/v1/pdp/tcin/' + product
-          host: 'maps.googleapis.com',
-          path: '/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk',
+        host: 'redsky.target.com',
+        path: '/v1/pdp/tcin/' + product,
+//          host: 'maps.googleapis.com',
+  //        path: '/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk',
           headers: headers
         }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
