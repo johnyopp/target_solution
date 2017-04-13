@@ -41,7 +41,7 @@ app.listen(app.get('port'), function() {
 
 
 
-app.get('/product_test', function (request, response) {
+app.get('/product_test/:productId', function (request, response) {
 
 
 
@@ -92,80 +92,40 @@ request.get(options, callback);
 app.get('/products/:productId', function (request, response) {
   var product = request.params.productId;
   
-console.log('HERE 1');
-
   getProductName(product, function(err, name){
-console.log('HERE 3');
+    pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+      client.query("SELECT attributes->'price' as value, attributes->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
+        done();
 
+        // Handle any errors.
+        if (err) return response.json(err);
 
-  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-    client.query("SELECT attributes->'price' as value, attributes->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
-      done();
-
-      // Handle any errors.
-      if (err) return response.json(err);
-
-      // Return result
-      return response.json({"id" : product,"name": name,"current_price": result.rows[0]});
-
+        // Return result
+        return response.json({"id" : product,"name": name,"current_price": result.rows[0]});
+      });
     });
   });
-
-
-
-  	});
-
-
 });
 
 function getProductName(product, cb) {
+  var request = require('request');
 
-    var headers = {};
-  
-    headers = {
+  var options = {
+    url: 'https://redsky.target.com/v1/pdp/tcin/' + product,
+    headers: {
       'Content-Type': 'application/json',
       'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
-    };
+    }
+  };
 
-    https.get({
-        host: 'redsky.target.com',
-        path: '/v2/pdp/tcin/' + product
-//          host: 'maps.googleapis.com',
-  //        path: '/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk',
-//          headers: headers
-        }, function(res) {
-        // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
-        res.setEncoding('utf8');
-console.log('HERE 2');
-
-  console.log('STATUS: ' + res.statusCode);
-  console.log('HEADERS: ' + JSON.stringify(res.headers));
-
-        // incrementally capture the incoming response body
-        var body = '';
-        res.on('data', function(d) {
-            body += d;
-        });
-
-        // do whatever we want with the response once it's done
-        res.on('end', function() {
-            try {
-console.log(body);
-
-                var parsed = JSON.parse(body);
-                console.log(parsed);
-            } catch (err) {
-                console.error('Unable to parse response as JSON', err);
-                return cb(err);
-            }
-
-            // pass the relevant data back to the callback
-            cb(null, parsed.product.item.product_description.title);
-        });
-    }).on('error', function(err) {
-        // handle errors with the request itself
-        console.error('Error with the request:', err.message);
-        cb(err);
-    });
-
+  request.get(options, function(error, response, body) {
+    if (!error && response.statusCode == 200) {
+      var parsed = JSON.parse(body);
+      cb(null, parsed.product.item.product_description.title);
+    }
+    else
+    {
+      cb(error);
+    }
+  });
 }
