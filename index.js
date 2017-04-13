@@ -41,6 +41,35 @@ app.listen(app.get('port'), function() {
 
 
 
+app.get('/product_test', function (request, response) {
+
+var http = require('http');
+ 
+var emp = [];
+ 
+var extServerOptions = {
+    host: 'redsky.target.com',
+    path: '/v1/pdp/tcin/13860428',
+    method: 'GET'
+};
+
+    http.request(extServerOptions, function (res) {
+        res.setEncoding('utf8');
+        res.on('data', function (data) {
+            emp = JSON.parse(data);
+        });
+ 
+    }).end();
+
+
+});
+
+
+
+
+
+
+
 app.get('/products/:productId', function (request, response) {
   var product = request.params.productId;
   
