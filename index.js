@@ -43,25 +43,29 @@ app.listen(app.get('port'), function() {
 
 app.get('/product_test', function (request, response) {
 
-var http = require('http');
- 
-var emp = [];
- 
-var extServerOptions = {
-    host: 'redsky.target.com',
-    path: '/v1/pdp/tcin/13860428',
-    method: 'GET',
-	Cache-Control: 'no-cache',
-	Postman-Token: 'eace05c3-7352-5c36-509c-33c6a00fa115'
+
+
+var request = require('request');
+
+var options = {
+  url: 'https://redsky.target.com/v1/pdp/tcin/13860428',
+  headers: {
+	'Cache-Control': 'no-cache',
+	'Postman-Token': 'eace05c3-7352-5c36-509c-33c6a00fa115'
+  }
 };
 
-    http.request(extServerOptions, function (res) {
-        res.setEncoding('utf8');
-        res.on('data', function (data) {
-            emp = JSON.parse(data);
-        });
- 
-    }).end();
+function callback(error, response, body) {
+  if (!error && response.statusCode == 200) {
+    var info = JSON.parse(body);
+    console.log(info);
+  }
+}
+
+request(options, callback);
+
+
+
 
 
 });
