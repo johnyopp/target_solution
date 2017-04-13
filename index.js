@@ -50,7 +50,9 @@ var emp = [];
 var extServerOptions = {
     host: 'redsky.target.com',
     path: '/v1/pdp/tcin/13860428',
-    method: 'GET'
+    method: 'GET',
+	Cache-Control: 'no-cache',
+	Postman-Token: 'eace05c3-7352-5c36-509c-33c6a00fa115'
 };
 
     http.request(extServerOptions, function (res) {
