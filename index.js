@@ -20,75 +20,6 @@ app.listen(app.get('port'), function() {
   console.log('Node app is running on port', app.get('port'));
 });
 
-
-//app.get('/product', function (request, response) {
-
-//var request=require("request");
-//var site_name = encodeURI("http://redsky.target.com/v1/pdp/tcin/13860428");
-
-//var site_name = encodeURI("https://maps.googleapis.com/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk");
-//request.get(site_name,function(error,response,body){
-  //         if(error){
-    //             console.log(error);
-      //     }
-
-        //   console.log(response);
-          // console.log('111111111111111111');
-           //console.log(body);
-//});
-//});
-
-
-
-
-app.get('/product_test/:productId', function (request, response) {
-
-
-
-
-
-var request = require('request');
-
-var options = {
-  url: 'https://redsky.target.com/v1/pdp/tcin/13860428',
-  headers: {
-      'Content-Type': 'application/json',
-      'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
-  }
-};
-
-function callback(error, response, body) {
-  if (!error && response.statusCode == 200) {
-  	console.log("GOT TO THE RIGHT PLACE");
-    var info = JSON.parse(body);
-    console.log(info);
-  }
-  else
-  {
-  	console.log("DARNIT");
-  	console.log("ERROR");
-  	console.log(error);
-  	console.log("RESPONSE");
-  	console.log(response);
-  	console.log("BODY");
-  	console.log(body);
-  }
-}
-
-request.get(options, callback);
-
-
-
-
-
-});
-
-
-
-
-
-
-
 app.get('/products/:productId', function (request, response) {
   var product = request.params.productId;
   
@@ -111,7 +42,7 @@ function getProductName(product, cb) {
   var request = require('request');
 
   var options = {
-    url: 'https://redsky.target.com/v1/pdp/tcin/' + product,
+    url: 'https://redsky.target.com/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics',
     headers: {
       'Content-Type': 'application/json',
       'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
@@ -129,3 +60,11 @@ function getProductName(product, cb) {
     }
   });
 }
+
+app.put('/products/:productId', function (request, response) {
+  var price = request.body.current_price.value;
+  var currency_code = request.body.current_price.currency_code;
+
+  console.log('PRICE: ' + price);
+  console.log('CURRENCY: ' + currency_code);
+});
