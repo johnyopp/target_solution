@@ -45,13 +45,15 @@ app.get('/product_test', function (request, response) {
 
 
 
+
+
 var request = require('request');
 
 var options = {
   url: 'https://redsky.target.com/v1/pdp/tcin/13860428',
   headers: {
       'Content-Type': 'application/json',
-      'Transfer-Encoding': 'chunked'
+      'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
   }
 };
 
