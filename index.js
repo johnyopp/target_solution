@@ -124,6 +124,7 @@ function getProductName(product, cb) {
   
     headers = {
       'Content-Type': 'application/json',
+      'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.8.1.13) Gecko/20080311 Firefox/2.0.0.13'
     };
 
     https.get({
@@ -134,7 +135,7 @@ function getProductName(product, cb) {
 //          headers: headers
         }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
-//        res.setEncoding('utf8');
+        res.setEncoding('utf8');
 console.log('HERE 2');
 
   console.log('STATUS: ' + res.statusCode);
