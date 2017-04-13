@@ -80,17 +80,17 @@ function getProductName(product, cb) {
 
     https.get({
         host: 'redsky.target.com',
-        path: '/v2/pdp/tcin/' + product,
+        path: '/v2/pdp/tcin/' + product
 //          host: 'maps.googleapis.com',
   //        path: '/maps/api/timezone/json?location=39.6034810,-119.6822510&timestamp=1331161200&key=AIzaSyBliTe19QOrCj12Lt1YbPDzi4I7MZJHqkk',
-          headers: headers
+//          headers: headers
         }, function(res) {
         // explicitly treat incoming data as utf8 (avoids issues with multi-byte chars)
 //        res.setEncoding('utf8');
 console.log('HERE 2');
 
-        console.log('/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics');
-console.log('HERE 2.5');
+  console.log('STATUS: ' + res.statusCode);
+  console.log('HEADERS: ' + JSON.stringify(res.headers));
 
         // incrementally capture the incoming response body
         var body = '';
