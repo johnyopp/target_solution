@@ -57,8 +57,13 @@ var options = {
 
 function callback(error, response, body) {
   if (!error && response.statusCode == 200) {
+  	console.log("GOT TO THE RIGHT PLACE");
     var info = JSON.parse(body);
     console.log(info);
+  }
+  else
+  {
+  	console.log("DARNIT");
   }
 }
 
