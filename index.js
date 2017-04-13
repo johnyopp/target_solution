@@ -67,10 +67,8 @@ app.put('/products/:productId', jsonParser, function (request, response) {
 
   console.log(request.body);
 
-  var parsed_body = JSON.parse(request.body);
-
-  var price = parsed_body.current_price.value;
-  var currency_code = parsed_body.current_price.currency_code;
+  var price = request.body.current_price.value;
+  var currency_code = request.body.current_price.currency_code;
 
   console.log('PRICE: ' + price);
   console.log('CURRENCY: ' + currency_code);
