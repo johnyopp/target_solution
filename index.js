@@ -50,8 +50,9 @@ var request = require('request');
 var options = {
   url: 'https://redsky.target.com/v1/pdp/tcin/13860428',
   headers: {
-	'Cache-Control': 'no-cache',
-	'Postman-Token': 'eace05c3-7352-5c36-509c-33c6a00fa115'
+      'Content-Type': 'application/json'
+//	'Cache-Control': 'no-cache',
+//	'Postman-Token': 'eace05c3-7352-5c36-509c-33c6a00fa115'
   }
 };
 
