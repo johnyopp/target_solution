@@ -62,7 +62,7 @@ function callback(error, response, body) {
   }
   else
   {
-  	console.log("DARNIT");
+  	console.log("DARNIT: " + response.subStatus);
   }
 }
 
