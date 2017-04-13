@@ -3,6 +3,7 @@ var pg = require('pg');
 var bodyParser = require('body-parser');
 var app = express();
 var https = require('https');
+var jsonParser = bodyParser.json()
 
 app.set('port', (process.env.PORT || 5000));
 
@@ -61,7 +62,7 @@ function getProductName(product, cb) {
   });
 }
 
-app.put('/products/:productId', function (request, response) {
+app.put('/products/:productId', jsonParser, function (request, response) {
   console.log('BODY');
 
   console.log(request.body);
