@@ -64,9 +64,9 @@ function getProductName(product, cb) {
 app.put('/products/:productId', function (request, response) {
   console.log('BODY');
 
-  console.log(body);
+  console.log(request.body);
 
-  var parsed_body = JSON.parse(body);
+  var parsed_body = JSON.parse(request.body);
 
   var price = parsed_body.current_price.value;
   var currency_code = parsed_body.current_price.currency_code;
