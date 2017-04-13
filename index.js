@@ -50,7 +50,8 @@ var request = require('request');
 var options = {
   url: 'https://redsky.target.com/v1/pdp/tcin/13860428',
   headers: {
-      'Content-Type': 'application/json'
+      'Content-Type': 'application/json',
+      'Transfer-Encoding': 'chunked'
   }
 };
 
