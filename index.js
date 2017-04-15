@@ -26,7 +26,7 @@ app.get('/products/:productId', function (request, response) {
   
   getProductName(product, function(err, name){
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
-      client.query("SELECT attributes->'price' as value, attributes->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
+      client.query("SELECT attr->'price' as value, attr->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
         done();
 
         // Handle any errors.
@@ -63,13 +63,23 @@ function getProductName(product, cb) {
 }
 
 app.put('/products/:productId', jsonParser, function (request, response) {
-  console.log('BODY');
-
-  console.log(request.body);
+  var product = request.params.productId;
 
   var price = request.body.current_price.value;
   var currency_code = request.body.current_price.currency_code;
 
-  console.log('PRICE: ' + price);
-  console.log('CURRENCY: ' + currency_code);
+  pg.connect(process.env.DATABASE_URL, function(err, client, done) {
+    client.query("UPDATE products SET attr = attr || '\"currency\"=>\"" + currency_code + "\",\"price\"=>\"" + price + "\"' :: hstore where product_id='" + product + "';INSERT INTO products (product_id, attr) SELECT '" + product + "','\"currency\" => \"" + currency_code + "\",\"price\" => \"" + price + "\"' WHERE NOT EXISTS (SELECT 1 FROM products WHERE product_id='" + product + "');", function(err, result) {
+
+      done();
+
+      // Handle any errors.
+      if (err)
+      {
+        return response.json(err);
+      }
+
+      return response.json(result.rows);
+    });
+  });
 });
