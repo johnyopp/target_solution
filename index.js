@@ -24,6 +24,7 @@ app.listen(app.get('port'), function() {
 app.get('/products/:productId', function (request, response) {
   var product = request.params.productId;
   
+  //Retrieve product name from service first, then get currency code and price from key value hstore in postgres database
   getProductName(product, function(err, name){
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query("SELECT attr->'price' as value, attr->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
@@ -40,8 +41,10 @@ app.get('/products/:productId', function (request, response) {
 });
 
 function getProductName(product, cb) {
+  //Retrieve product name from another service
   var request = require('request');
 
+  //Convince service that this is a browser request, otherwise request is blocked
   var options = {
     url: 'https://redsky.target.com/v1/pdp/tcin/' + product + '?excludes=taxonomy,price,promotion,bulk_ship,rating_and_review_reviews,rating_and_review_statistics,question_answer_statistics',
     headers: {
@@ -68,6 +71,7 @@ app.put('/products/:productId', jsonParser, function (request, response) {
   var price = request.body.current_price.value;
   var currency_code = request.body.current_price.currency_code;
 
+  //UPSERT as two separate but equal lines in single call.  Update works only if line exists, and insert works only if line does not exist.
   pg.connect(process.env.DATABASE_URL, function(err, client, done) {
     client.query("UPDATE products SET attr = attr || '\"currency\"=>\"" + currency_code + "\",\"price\"=>\"" + price + "\"' :: hstore where product_id='" + product + "';INSERT INTO products (product_id, attr) SELECT '" + product + "','\"currency\" => \"" + currency_code + "\",\"price\" => \"" + price + "\"' WHERE NOT EXISTS (SELECT 1 FROM products WHERE product_id='" + product + "');", function(err, result) {
 

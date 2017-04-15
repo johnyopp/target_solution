@@ -1,39 +1,38 @@
-# node-js-getting-started
+#Application Use
 
-A barebones Node.js app using [Express 4](http://expressjs.com/).
+Application implements the myRetail RESTful service case study.
 
-This application supports the [Getting Started with Node on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs) article - check it out.
+For product GET requests use the following address syntax:
 
-## Running Locally
+  https://yopp-target-answer.herokuapp.com/products/{product_id}
 
-Make sure you have [Node.js](http://nodejs.org/) and the [Heroku CLI](https://cli.heroku.com/) installed.
+  e.g.,
 
-```sh
-$ git clone git@github.com:heroku/node-js-getting-started.git # or clone your own fork
-$ cd node-js-getting-started
-$ npm install
-$ npm start
-```
+  https://yopp-target-answer.herokuapp.com/products/13860428
 
-Your app should now be running on [localhost:5000](http://localhost:5000/).
+Results will be provided in the following JSON format:
 
-## Deploying to Heroku
+  {"id":"13860428","name":"The Big Lebowski (Blu-ray)","current_price":{"value":"13.49","currency_code":"USD"}}
 
-```
-$ heroku create
-$ git push heroku master
-$ heroku open
-```
-or
+For product PUT requests to update the currency code and/or price use the following address:
 
-[![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+  https://yopp-target-answer.herokuapp.com/products/{product_id}
 
-## Documentation
+  e.g.,
 
-For more information about using Node.js on Heroku, see these Dev Center articles:
+  https://yopp-target-answer.herokuapp.com/products/13860428
 
-- [Getting Started with Node.js on Heroku](https://devcenter.heroku.com/articles/getting-started-with-nodejs)
-- [Heroku Node.js Support](https://devcenter.heroku.com/articles/nodejs-support)
-- [Node.js on Heroku](https://devcenter.heroku.com/categories/nodejs)
-- [Best Practices for Node.js Development](https://devcenter.heroku.com/articles/node-best-practices)
-- [Using WebSockets on Heroku with Node.js](https://devcenter.heroku.com/articles/node-websockets)
+With the following JSON format in the body:
+
+  {"id":"13860428","name":"The Big Lebowski (Blu-ray)","current_price":{"value":"13.49","currency_code":"USD"}}
+
+NOTE:  The PUT request will insert new data for items it does not have or update data for items it already has.
+
+DATA NOTE:  Only item ids 13860428 and 16696652 currently have data in the price database.
+
+#Code and Database
+
+All code for the GET and PUT calls are in the index.js file.
+
+Currency and pricing information are stored in a Postgres database table using an hstore key value column.
+This was done as an exploration of using a Nosql storage solution embedded in an ACID data store.
