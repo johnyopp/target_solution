@@ -14,6 +14,10 @@ Results will be provided in the following JSON format:
 
   {"id":"13860428","name":"The Big Lebowski (Blu-ray)","current_price":{"value":"13.49","currency_code":"USD"}}
 
+Results for invalid tcins will return the id and an empty price set:
+
+  {"id":"15643793","current_price":{}}
+
 For product PUT requests to update the currency code and/or price use the following address:
 
   https://yopp-target-answer.herokuapp.com/products/{product_id}
