@@ -129,7 +129,7 @@ function nonrelationalPut(jsonParser, request, response)
     var query = { "tcin": product };
     var dbo = db.db("heroku_b41mlkb1");
     var newvalues = { $set: {"price": new_price, "currency_code": new_currency_code } };
-    dbo.collection("item_price").updateOne(myquery, newvalues, {upsert: true}, function(err, res) {
+    dbo.collection("item_price").updateOne(query, newvalues, {upsert: true}, function(err, res) {
       if (err) throw err;
       console.log("1 document updated");
       db.close();
