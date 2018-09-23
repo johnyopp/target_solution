@@ -28,11 +28,12 @@ app.get('/products/:productId', function (request, response) {
  
 var mongodbHost = '@ds111963.mlab.com';
 var mongodbPort = '11963';
-var authenticate = 'admin_ui:dgh19byz';
+var authenticate = 'admin_ui:test19';
 var mongodbDatabase = 'heroku_b41mlkb1';
  
 // connect string for mongodb server running locally, connecting to a database called test
 var url = 'mongodb://'+authenticate+mongodbHost+':'+mongodbPort + '/' + mongodbDatabase;
+console.log("url: " + url);
 
 function nonrelationalQuery(request, response)
 {
