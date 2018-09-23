@@ -116,7 +116,7 @@ app.put('/products/:productId', jsonParser, function (request, response) {
   relationalPut(productId, jsonParser, request, response);
 });
 
-functional relationalPut(productId, jsonParser, request, response)
+function relationalPut(productId, jsonParser, request, response)
 {
   var product = request.params.productId;
 
