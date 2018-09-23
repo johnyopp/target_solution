@@ -47,7 +47,7 @@ function nonrelationalQuery(request, response)
 
     MongoClient.connect(url, function(err, db) {
       if (err) return response.json(err);
-      
+
       var query = { "tcin": product };
       var dbo = db.db("heroku_b41mlkb1");
 
@@ -57,7 +57,7 @@ function nonrelationalQuery(request, response)
         if (err) return response.json(err);
         db.close();
 
-        return response.json({"id" : product,"name": name,"current_price": result.price,"currency_code": result.currency_code});
+        return response.json({"id" : product,"name": name,"current_price":{"value":result.price,"currency_code":result.currency_code}});
       });
     });
   });  
