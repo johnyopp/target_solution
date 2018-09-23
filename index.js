@@ -113,7 +113,7 @@ function getProductName(product, cb) {
 }
 
 app.put('/products/:productId', jsonParser, function (request, response) {
-  relationalPut(jsonParser, request, response);
+  nonrelationalPut(jsonParser, request, response);
 });
 
 function nonrelationalPut(jsonParser, request, response)
