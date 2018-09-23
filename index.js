@@ -31,7 +31,7 @@ function nonrelationalQuery(request, response)
 {
   var product = request.params.productId;
 
-  MongoClient.connect(url, function(err, db) {
+  MongoClient.connect(process.env.MONGODB_URI, function(err, db) {
     if (err) throw err;
     var dbo = db.db("heroku_b41mlkb1");
     var query = { "tcin": product };
