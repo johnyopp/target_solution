@@ -138,4 +138,4 @@ function relationalPut(productId, jsonParser, request, response)
       return response.json(result.rows);
     });
   });
-});
+}
