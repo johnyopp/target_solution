@@ -23,7 +23,7 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/products/:productId', function (request, response) {
-  relationalQuery(request, response);
+  nonrelationalQuery(request, response);
 });
  
 var mongodbHost = '@ds111963.mlab.com';
@@ -115,6 +115,27 @@ function getProductName(product, cb) {
 app.put('/products/:productId', jsonParser, function (request, response) {
   relationalPut(jsonParser, request, response);
 });
+
+function nonrelationalPut(jsonParser, request, response)
+{
+  var product = request.params.productId;
+
+  var new_price = request.body.current_price.value;
+  var new_currency_code = request.body.current_price.currency_code;
+
+  //UPSERT as two separate but equal lines in single call.  Update works only if line exists, and insert works only if line does not exist.
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var query = { "tcin": product };
+    var dbo = db.db("heroku_b41mlkb1");
+    var newvalues = { $set: {price: new_price, currency_code: new_currency_code } };
+    dbo.collection("item_price").updateOne(myquery, newvalues, {upsert: true}, function(err, res) {
+      if (err) throw err;
+      console.log("1 document updated");
+      db.close();
+    });
+  });
+}
 
 function relationalPut(jsonParser, request, response)
 {
