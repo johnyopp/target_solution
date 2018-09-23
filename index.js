@@ -28,7 +28,7 @@ app.get('/products/:productId', function (request, response) {
  
 var mongodbHost = '@ds111963.mlab.com';
 var mongodbPort = '11963';
-var authenticate = 'admin_ui:test19';
+var authenticate = process.env.MONGO_USER+':'+process.env.MONGO_PASS;
 var mongodbDatabase = 'heroku_b41mlkb1';
  
 // connect string for mongodb server running locally, connecting to a database called test
