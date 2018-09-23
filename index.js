@@ -133,6 +133,8 @@ function nonrelationalPut(jsonParser, request, response)
       if (err) throw err;
       console.log("1 document updated");
       db.close();
+
+      return response.json({});
     });
   });
 }
