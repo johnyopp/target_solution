@@ -57,7 +57,16 @@ function nonrelationalQuery(request, response)
         if (err) return response.json(err);
         db.close();
 
-        return response.json({"id" : product,"name": name,"current_price":{"value":result.price,"currency_code":result.currency_code}});
+        var price;
+        var code;
+
+        if(result)
+        {
+          price = result.price;
+          code = result.currency_code;
+        }
+
+        return response.json({"id" : product,"name": name,"current_price":{"value":price,"currency_code":result.code}});
       });
     });
   });  
