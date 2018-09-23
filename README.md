@@ -28,7 +28,7 @@ With the following JSON format in the body:
 
 NOTE:  The PUT request will insert new data for items it does not have or update data for items it already has.
 
-DATA NOTE:  Only item ids 13860428 and 16696652 currently have data in the price database.
+DATA NOTE:  Only item id 13860428 currently has data.
 
 #Code and Database
 

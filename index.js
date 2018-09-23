@@ -66,7 +66,7 @@ function nonrelationalQuery(request, response)
           code = result.currency_code;
         }
 
-        return response.json({"id" : product,"name": name,"current_price":{"value":price,"currency_code":result.code}});
+        return response.json({"id" : product,"name": name,"current_price":{"value":price,"currency_code":code}});
       });
     });
   });  
