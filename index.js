@@ -47,7 +47,8 @@ function nonrelationalQuery(request, response)
       // Handle any query error.
       if (err) return response.json(err);
       db.close();
-      return response.json({"id" : product,"current_price": result.rows[0]});
+      console.log(result);
+      //return response.json({"id" : product,"current_price": result.rows[0]});
     });
   });  
 }
