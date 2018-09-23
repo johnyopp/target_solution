@@ -42,7 +42,8 @@ function nonrelationalQuery(request, response)
   MongoClient.connect(url, function(err, db) {
     if (err) throw err;
     var query = { "tcin": product };
-    db.collection("item_price").find(query).toArray(function(err, result) {
+    var dbo = db.db("heroku_b41mlkb1");
+    dbo.collection("item_price").find(query).toArray(function(err, result) {
       // Handle any query error.
       if (err) return response.json(err);
       db.close();
