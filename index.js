@@ -48,8 +48,7 @@ function nonrelationalQuery(request, response)
       if (err) return response.json(err);
       db.close();
       console.log(result);
-      var parsed = JSON.parse(result);
-      return response.json({"id" : product,"current_price": parsed.price,"currency_code": parsed.currency_code});
+      return response.json({"id" : product,"current_price": result.price,"currency_code": result.currency_code});
     });
   });  
 }
