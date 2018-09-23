@@ -22,23 +22,32 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/products/:productId', function (request, response) {
+  relationalQuery(request, response);
+});
+
+function relationalQuery(request, response)
+{
   var product = request.params.productId;
   
   //Retrieve product name from service first, then get currency code and price from key value hstore in postgres database
   getProductName(product, function(err, name){
+
+    //Handle any product error
+    if (err) return response.json(err);
+
     pg.connect(process.env.DATABASE_URL, function(err, client, done) {
       client.query("SELECT attr->'price' as value, attr->'currency' as currency_code FROM products WHERE product_id='" + product + "'", function(err, result) {
         done();
 
-        // Handle any errors.
+        // Handle any query error.
         if (err) return response.json(err);
 
         // Return result
         return response.json({"id" : product,"name": name,"current_price": result.rows[0]});
       });
     });
-  });
-});
+  });  
+}
 
 function getProductName(product, cb) {
   //Retrieve product name from another service
