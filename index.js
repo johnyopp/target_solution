@@ -23,7 +23,7 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/products/:productId', function (request, response) {
-  nonrelationalQuery(request, response);
+  relationalQuery(request, response);
 });
  
 var mongodbHost = '@ds111963.mlab.com';
