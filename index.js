@@ -43,12 +43,12 @@ function nonrelationalQuery(request, response)
     if (err) throw err;
     var query = { "tcin": product };
     var dbo = db.db("heroku_b41mlkb1");
-    dbo.collection("item_price").find(query).toArray(function(err, result) {
+    dbo.collection("item_price").findOne(query,function(err, result) {
       // Handle any query error.
       if (err) return response.json(err);
       db.close();
       console.log(result);
-      var parsed = JSON.parse(result[0]);
+      var parsed = JSON.parse(result);
       return response.json({"id" : product,"current_price": parsed.price,"currency_code": parsed.currency_code});
     });
   });  
