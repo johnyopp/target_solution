@@ -39,16 +39,26 @@ function nonrelationalQuery(request, response)
 {
   var product = request.params.productId;
 
-  MongoClient.connect(url, function(err, db) {
-    if (err) throw err;
-    var query = { "tcin": product };
-    var dbo = db.db("heroku_b41mlkb1");
-    dbo.collection("item_price").findOne(query,function(err, result) {
-      // Handle any query error.
+  //Retrieve product name from service first, then get currency code and price from mongo db
+  getProductName(product, function(err, name){
+
+    //Handle any product error
+    if (err) return response.json(err);
+
+    MongoClient.connect(url, function(err, db) {
       if (err) return response.json(err);
-      db.close();
-      console.log(result);
-      return response.json({"id" : product,"current_price": result.price,"currency_code": result.currency_code});
+      
+      var query = { "tcin": product };
+      var dbo = db.db("heroku_b41mlkb1");
+
+      dbo.collection("item_price").findOne(query,function(err, result) {
+
+        // Handle any query error.
+        if (err) return response.json(err);
+        db.close();
+
+        return response.json({"id" : product,"name": name,"current_price": result.price,"currency_code": result.currency_code});
+      });
     });
   });  
 }
