@@ -24,7 +24,7 @@ app.listen(app.get('port'), function() {
 });
 
 app.get('/products/:productId', function (request, response) {
-  relationalQuery(request, response);
+  nonrelationalQuery(request, response);
 });
 
 function nonrelationalQuery(request, response)
