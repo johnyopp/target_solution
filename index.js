@@ -3,6 +3,8 @@ var pg = require('pg');
 var bodyParser = require('body-parser');
 var app = express();
 var https = require('https');
+var MongoClient = require('mongodb').MongoClient;
+var url = "mongodb://ds111963.mlab.com:11963/";
 var jsonParser = bodyParser.json()
 
 app.set('port', (process.env.PORT || 5000));
@@ -24,6 +26,23 @@ app.listen(app.get('port'), function() {
 app.get('/products/:productId', function (request, response) {
   relationalQuery(request, response);
 });
+
+function nonrelationalQuery(request, response)
+{
+  var product = request.params.productId;
+
+  MongoClient.connect(url, function(err, db) {
+    if (err) throw err;
+    var dbo = db.db("heroku_b41mlkb1");
+    var query = { "tcin": product };
+    dbo.collection("item_price").find(query).toArray(function(err, result) {
+      // Handle any query error.
+      if (err) return response.json(err);
+      db.close();
+      return response.json({"id" : product,"current_price": result.rows[0]});
+    });
+  });  
+}
 
 function relationalQuery(request, response)
 {
