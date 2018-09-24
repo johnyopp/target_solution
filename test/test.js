@@ -28,6 +28,22 @@
         });
     });
 
+    it('should get blank list item price data on GET', function(done){
+        chai.request(app)
+        .get('/products/736487236hjg')
+        .end(function(err, res){
+            res.should.have.status(200);
+            res.should.be.json;
+            res.body.should.have.property('id');
+            res.body.should.not.have.property('name');
+            res.body.should.have.property('current_price');
+            res.body.current_price.should.not.have.property('value');
+            res.body.current_price.should.not.have.property('currency_code');
+            res.body.id.should.equal('736487236hjg');
+            done();
+        });
+    });
+
     it('should update a list item price on PUT', function(done) {
         chai.request(app)
             .put('/products/13860428')

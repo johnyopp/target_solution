@@ -28,7 +28,7 @@ app.get('/products/:productId', function (request, response) {
  
 var mongodbHost = '@ds111963.mlab.com';
 var mongodbPort = '11963';
-//var authenticate = process.env.MONGO_USER+':'+process.env.MONGO_PASS;
+//  var authenticate = process.env.MONGO_USER+':'+process.env.MONGO_PASS;
 var authenticate = 'admin_ui:test19';
 var mongodbDatabase = 'heroku_b41mlkb1';
  
@@ -140,7 +140,6 @@ function nonrelationalPut(jsonParser, request, response)
     var newvalues = { $set: {"price": new_price, "currency_code": new_currency_code } };
     dbo.collection("item_price").updateOne(query, newvalues, {upsert: true}, function(err, res) {
       if (err) throw err;
-      console.log("1 document updated");
       db.close();
 
       return response.json({});
