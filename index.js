@@ -28,12 +28,12 @@ app.get('/products/:productId', function (request, response) {
  
 var mongodbHost = '@ds111963.mlab.com';
 var mongodbPort = '11963';
-var authenticate = process.env.MONGO_USER+':'+process.env.MONGO_PASS;
+//var authenticate = process.env.MONGO_USER+':'+process.env.MONGO_PASS;
+var authenticate = 'admin_ui:test19';
 var mongodbDatabase = 'heroku_b41mlkb1';
  
-// connect string for mongodb server running locally, connecting to a database called test
+// connect string for mongodb server running on heroku
 var url = 'mongodb://'+authenticate+mongodbHost+':'+mongodbPort + '/' + mongodbDatabase;
-console.log("url: " + url);
 
 function nonrelationalQuery(request, response)
 {
@@ -171,3 +171,5 @@ function relationalPut(jsonParser, request, response)
     });
   });
 }
+
+module.exports.app = app;
