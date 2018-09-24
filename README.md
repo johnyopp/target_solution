@@ -41,4 +41,4 @@ All code for the GET and PUT calls are in the index.js file.
 
 All tests are in test/test.js.
 
-Currency and pricing information for primary implementation are stored in a MongoDB datastore.  There is also an altermnate version of functions where currency and pricing information are stored in a Postgres database table using an hstore key value column.  This was done as an exploration of using a Nosql storage solution embedded in an ACID data store.
+Currency and pricing information for primary implementation are stored in a MongoDB datastore.  There is also an alternate version of functions where currency and pricing information are stored in a Postgres database table using an hstore key value column.  This was done as an exploration of using a Nosql storage solution embedded in an ACID data store.
